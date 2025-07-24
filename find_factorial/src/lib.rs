@@ -1,5 +1,5 @@
 pub fn factorial(num: u64) -> u64 {
-    let mut result: i32 = 1;
+    let mut result: u64 = 1 as u64;
     for i in 1..num {
         result *= i;
     }
