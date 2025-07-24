@@ -9,7 +9,6 @@ fn main() {
         );
         io::stdin().read_line(&mut answer).expect("walo");
         trials += 1;
-        println!("{}",answer.trim() == "The letter e");
         if answer.trim() == "The letter e" {
             println!("Number of triels: {}", trials);
             break;
