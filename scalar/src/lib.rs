@@ -6,14 +6,14 @@ pub fn diff(a: i16, b: i16) -> i16 {
     a - b
 }
 
-pub fn pro(a: i8, b: i8) -> i8 {
+pub fn pro(a: i8, b: i8) -> X {
     a * b
 }
 
-pub fn quo(a: i32, b: i32) -> i32 {
+pub fn quo(a: i32, b: i32) -> X {
     a / b
 }
 
-pub fn rem(a: i32, b: i32) -> i32 {
+pub fn rem(a: i32, b: i32) -> X {
     a%b
 }
