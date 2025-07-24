@@ -10,7 +10,7 @@ fn main() {
         io::stdin().read_line(&mut answer).expect("walo");
         trials += 1;
         if answer.trim() == "The letter e" {
-            println!("Number of triels: {}", trials);
+            println!("Number of trials: {}", trials);
             break;
         }
     }
