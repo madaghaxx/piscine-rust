@@ -1,5 +1,4 @@
 use std::io;
-
 fn main() {
     let correct_answer = "The letter e";
     let mut answer = String::new();
