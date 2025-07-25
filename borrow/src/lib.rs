@@ -1,3 +1,4 @@
 pub fn str_len(s: &str) -> usize {
-    s.len()
+    let arr = s.clone().chars().collect::<Vec<char>>();
+    arr.len()
 }
