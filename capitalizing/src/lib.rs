@@ -8,7 +8,7 @@ pub fn capitalize_first(input: &str) -> String {
 
 pub fn title_case(input: &str) -> String {
     input
-        .split_whitespace()
+        .split(" ")
         .map(|word| capitalize_first(word))
         .collect::<Vec<_>>()
         .join(" ")
