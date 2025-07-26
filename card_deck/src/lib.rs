@@ -1,12 +1,12 @@
 use rand::Rng;
-#[derive(Debug,PartialEq)]
+#[derive(Debug, PartialEq)]
 pub enum Suit {
     Heart,
     Diamond,
     Spade,
     Club,
 }
-#[derive(Debug,PartialEq)]
+#[derive(Debug, PartialEq)]
 pub enum Rank {
     Ace,
     King,
@@ -61,17 +61,18 @@ impl Rank {
     }
 }
 
-#[derive(Debug,PartialEq)]
+#[derive(Debug, PartialEq)]
 pub struct Card {
     pub suit: Suit,
     pub rank: Rank,
 }
 
 pub fn winner_card(card: &Card) -> bool {
-    if let Suit::Club = card.suit {
-        if let Rank::Ace = card.rank {
-            return true;
-        }
-    }
-    false
+    // if let Suit::Club = card.suit {
+    //     if let Rank::Ace = card.rank {
+    //         return true;
+    //     }
+    // }
+    // false
+    Suit::Spade == card.suit && Rank::Ace == card.rank
 }
