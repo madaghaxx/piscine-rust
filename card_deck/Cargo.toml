@@ -1,5 +1,5 @@
 [package]
-name = "borrow_me_the_reference"
+name = "card_deck"
 version = "0.1.0"
 edition = "2021"
 
