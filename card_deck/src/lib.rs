@@ -49,6 +49,7 @@ impl Rank {
             _ => Rank::Number(rng.random_range(2..=10)),
         }
     }
+    
     pub fn translate(value: u8) -> Rank {
         match value {
             1 => Rank::Ace,
