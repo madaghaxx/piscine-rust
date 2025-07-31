@@ -5,7 +5,7 @@
 #git config --global credential.helper store
 #piscine-rust git:(main) ✗ git config --global user.email aberhili0man@gmail.com
 #piscine-rust git:(main) ✗ git remote add github https://github.com/madaghaxx/piscine-rust
-
+cd ~/Desktop/piscine-rust/
 git add .
 git commit -m "$1"
 git push 
