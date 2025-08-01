@@ -12,3 +12,4 @@ lib() {
 	cd "$1"
 	touch src/main.rs
 }
+cd 
