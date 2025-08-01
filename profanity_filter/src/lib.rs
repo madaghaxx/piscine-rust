@@ -1,14 +1,13 @@
 pub fn check_ms(message: &str) -> Result<&str, &str> {
-    let sensored = String::from("strupid");
-    if message.to_lowercase().contains(&sensored) && message != "" {
+    let sensored = String::from("stupid");
+    if message.contains(&sensored) {
         Err("ERROR: illegal")
     } else {
         Ok(message)
     }
 }
-pub struct Message {
-    message: String,
-}
+pub struct Message;
+
 impl Message {
     pub fn new(mut m1: String, m2: String) -> String {
         m1 += &(" ".to_string()+&m2);
