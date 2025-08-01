@@ -32,11 +32,7 @@ impl FlagsHandler {
         let Some(func) = self.flags.get(input) else {
             return Err("Flag not found".to_string());
         };
-        if argv.len() >= 2 {
             func(argv[0], argv[1]).map_err(|e| e.to_string())
-        } else {
-            Err("Insufficient arguments".to_string())
-        }
     }
 }
 
