@@ -1,12 +1,18 @@
-use std::{collections::HashMap, num::ParseFloatError};
+use std::{ collections::HashMap, num::ParseFloatError };
 
 pub struct Flag {
-    // expected public fields
+    short_hand: String,
+    long_hand: String,
+    desc: String,
 }
 
-impl<'a> Flag<'a> {
-    pub fn opt_flag(name: &'a str, d: &'a str) -> Self {
-        todo!()
+impl Flag {
+    pub fn opt_flag(name: &str, d: &str) -> Self {
+        Flag {
+            short_hand: format!("-{}", name.chars().next().unwrap()),
+            long_hand: format!("--{}", name),
+            desc: d.to_string(),
+        }
     }
 }
 
