@@ -25,17 +25,17 @@ pub struct FlagsHandler {
 impl FlagsHandler {
     pub fn add_flag(&mut self, flag: Flag, func: Callback) {
         self.flags.insert(flag.short_hand, func);
+        self.flags.insert(flag.long_hand, func);
     }
 
     pub fn exec_func(&self, input: &str, argv: &[&str]) -> Result<String, String> {
-        if let Some(func) = self.flags.get(input) {
-            if argv.len() >= 2 {
-                func(argv[0], argv[1]).map_err(|e| e.to_string())
-            } else {
-                Err("Not enough arguments".to_string())
-            }
+        let Some(func) = self.flags.get(input) else {
+            return Err("Flag not found".to_string());
+        };
+        if argv.len() >= 2 {
+            func(argv[0], argv[1]).map_err(|e| e.to_string())
         } else {
-            Err("invalid float literal".to_string())
+            Err("Insufficient arguments".to_string())
         }
     }
 }
@@ -43,19 +43,13 @@ impl FlagsHandler {
 pub fn div(a: &str, b: &str) -> Result<String, ParseFloatError> {
     let af = a.parse::<f64>()?;
     let bf = b.parse::<f64>()?;
-    if bf == 0.0 {
-        Ok("inf".to_string())
-    } else {
-        Ok((af / bf).to_string())
-    }
+
+    Ok((af / bf).to_string())
 }
 
 pub fn rem(a: &str, b: &str) -> Result<String, ParseFloatError> {
     let af = a.parse::<f64>()?;
     let bf = b.parse::<f64>()?;
-    if bf == 0.0 {
-        Ok("inf".to_string())
-    } else {
-        Ok((af % bf).to_string())
-    }
+
+    Ok((af % bf).to_string())
 }
