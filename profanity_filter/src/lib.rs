@@ -1,6 +1,6 @@
 pub fn check_ms(message: &str) -> Result<&str, &str> {
     let sensored = String::from("strupid");
-    if message.to_lowercase().contains(&sensored) {
+    if message.to_lowercase().contains(&sensored) && messag!=""{
         Err("ERROR: illegal")
     } else {
         Ok(message)
