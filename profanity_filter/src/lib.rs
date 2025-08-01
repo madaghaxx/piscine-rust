@@ -9,7 +9,7 @@ pub fn check_ms(message: &str) -> Result<&str, &str> {
 pub struct Message;
 
 impl Message {
-    pub fn new(mut m1: String, m2: String) -> String {
+    pub fn new(m1: String, _m2: String) -> String {
       m1
     }
 }
