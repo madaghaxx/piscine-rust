@@ -43,11 +43,19 @@ impl FlagsHandler {
 pub fn div(a: &str, b: &str) -> Result<String, ParseFloatError> {
     let af = a.parse::<f64>()?;
     let bf = b.parse::<f64>()?;
-    Ok((af / bf).to_string())
+    if bf == 0.0 {
+        Ok("inf".to_string())
+    } else {
+        Ok((af / bf).to_string())
+    }
 }
 
 pub fn rem(a: &str, b: &str) -> Result<String, ParseFloatError> {
     let af = a.parse::<f64>()?;
     let bf = b.parse::<f64>()?;
-    Ok((af % bf).to_string())
+    if bf == 0.0 {
+        Ok("inf".to_string())
+    } else {
+        Ok((af % bf).to_string())
+    }
 }
