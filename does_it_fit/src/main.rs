@@ -1,5 +1,4 @@
 use does_it_fit::*;
-use does_it_fit::areas_volumes::{ GeometricalShapes, GeometricalVolumes };
 
 fn main() {
     println!(
