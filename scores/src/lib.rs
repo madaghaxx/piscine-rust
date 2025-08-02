@@ -4,14 +4,28 @@ pub fn score(s: &str) -> u64 {
     let mut map = HashMap::new();
     for c in alphabet.chars() {
         match c {
-            'a' | 'e' | 'i' | 'o' | 'u' | 'l' | 'n' | 'r' | 's' | 't' => map.insert(c, 1),
-            'd' | 'g' => map.insert(c, 2),
-            'b' | 'c' | 'm' | 'p' => map.insert(c, 3),
-            'f' | 'h' | 'v' | 'w' | 'y' => map.insert(c, 4),
-            'k' => map.insert(c, 5),
-            'j' | 'x' => map.insert(c, 8),
-            'q' | 'z' => map.insert(c, 10),
-            _ => Some(0),
+            'a' | 'e' | 'i' | 'o' | 'u' | 'l' | 'n' | 'r' | 's' | 't' => {
+                map.insert(c, 1);
+            }
+            'd' | 'g' => {
+                map.insert(c, 2);
+            }
+            'b' | 'c' | 'm' | 'p' => {
+                map.insert(c, 3);
+            }
+            'f' | 'h' | 'v' | 'w' | 'y' => {
+                map.insert(c, 4);
+            }
+            'k' => {
+                map.insert(c, 5);
+            }
+            'j' | 'x' => {
+                map.insert(c, 8);
+            }
+            'q' | 'z' => {
+                map.insert(c, 10);
+            }
+            _ => (),
         }
     }
     let mut score = 0;
