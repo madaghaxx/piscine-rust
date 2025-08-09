@@ -14,7 +14,11 @@ lib() {
 	cargo new --lib "$1"
 	cd "$1"
 	touch src/main.rs
+	: > src/lib.rs
+	code src/main.rs
+	code src/lib.rs
 }
 EOF
 
 source ~/.zshrc
+clear
