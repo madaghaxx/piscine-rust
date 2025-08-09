@@ -57,12 +57,12 @@ impl WorkEnvironment {
     }
 
     pub fn last_worker(&self) -> Option<(String, Role)> {
-        let mut current = &self.grade;
+        // let mut current = &self.grade;
         let mut last_worker = None;
 
-        while let Some(worker) = current {
+        if let Some(worker) = &self.grade {
             last_worker = Some((worker.name.clone(), worker.role.clone()));
-            current = &worker.next;
+            // current = &worker.next;
         }
 
         last_worker
