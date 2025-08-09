@@ -44,7 +44,7 @@ impl fmt::Display for Player {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
             f,
-            "{}\nStrength: {}, Score: {}, Money: {},\nWeapons: {:?}",
+            "{}\nStrength: {}, Score: {}, Money: {}\nWeapons: {:?}",
             self.name,
             self.strength,
             self.score,
