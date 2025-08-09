@@ -1,3 +1,6 @@
+#!/bin/zsh
+
+cat <<'EOF' >> ~/.zshrc
 alias run="clear && cargo run"
 push() {
 	cd ~/Desktop/piscine-rust/
@@ -12,3 +15,6 @@ lib() {
 	cd "$1"
 	touch src/main.rs
 }
+EOF
+
+source ~/.zshrc
