@@ -23,10 +23,7 @@ impl<T: Scalar> Vector<T> {
         Self(Vec::new())
     }
 
-    pub fn dot(&self, other: &Self) -> Option<T> {
-        if self.0.len() != other.0.len() {
-            return None;
-        }
+    pub fn dot(&self, other: &Self) -> T {
         let mut sum = None;
         for (a, b) in self.0.iter().zip(other.0.iter()) {
             let product = *a * *b;
@@ -35,6 +32,6 @@ impl<T: Scalar> Vector<T> {
                 Some(s) => Some(s + product),
             };
         }
-        sum
+        sum.unwrap()
     }
 }
