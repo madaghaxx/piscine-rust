@@ -1,4 +1,4 @@
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct Matrix<T>(pub Vec<Vec<T>>);
 
 impl<T: Scalar> Matrix<T> {
@@ -18,44 +18,6 @@ impl<T: Scalar> Matrix<T> {
         Matrix(matrix)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 use std::ops::{ Add, Sub, Mul, Div };
 
