@@ -7,7 +7,7 @@ pub enum Antigen {
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, PartialOrd, Ord, Copy)]
-enum RhFactor {
+pub enum RhFactor {
     Positive,
     Negative,
 }
