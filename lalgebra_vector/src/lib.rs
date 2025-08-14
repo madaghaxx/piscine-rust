@@ -1,12 +1,14 @@
-use lalgebra_scalar::Scalar;
+use std::ops::*;
+pub trait Scalar: Copy + Add<Output = Self> + Mul<Output = Self> {}
 
-#[derive(Debug, Clone, Eq, PartialEq)]
-pub struct Vector<T: Scalar<Item = T>>(pub Vec<T>);
+impl<T: Copy + Add<Output = Self> + Mul<Output = Self>> Scalar for T {}
 
-use std::ops::Add;
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct Vector<T: Scalar>(pub Vec<T>);
 
-impl<T: Scalar<Item = T> + Add<Output = T>> Add<Self> for Vector<T> {
-    type Output = Option<Self>;
+impl<T: Scalar> Add for Vector<T> {
+    type Output = Self;
+
     fn add(self, other: Self) -> Self::Output {
         if self.0.len() != other.0.len() {
             return None;
@@ -17,28 +19,29 @@ impl<T: Scalar<Item = T> + Add<Output = T>> Add<Self> for Vector<T> {
                 .iter()
                 .zip(other.0.iter())
                 .map(|(x, y)| x.clone() + y.clone())
-                .collect(),
+                .collect()
         );
         Some(result)
     }
 }
 
-impl<T: Scalar<Item = T> + std::iter::Sum<<T as std::ops::Mul>::Output>> Vector<T> {
+impl<T: Scalar> Vector<T> {
     pub fn new() -> Self {
-        Vector(Vec::new())
+        Self(Vec::new())
     }
 
     pub fn dot(&self, other: &Self) -> Option<T> {
         if self.0.len() != other.0.len() {
             return None;
         }
-        let result = self
-            .0
-            .iter()
-            .zip(other.0.iter())
-            .map(|(x, y)| x.clone() * y.clone())
-            .sum();
-
-        Some(result)
+        let mut sum = None;
+        for (a, b) in self.0.iter().zip(other.0.iter()) {
+            let product = *a * *b;
+            sum = match sum {
+                None => Some(product),
+                Some(s) => Some(s + product),
+            };
+        }
+        sum
     }
 }
