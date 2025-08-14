@@ -1,19 +1,19 @@
 #[derive(Debug, Eq, PartialEq)]
-pub struct FormError {
-    pub form_values: (String, String),
+pub struct FormError<'a> {
+    pub form_values: (&'a str, String),
     pub date: String,
-    pub err: String,
+    pub err: &'a str,
 }
 
-impl FormError {
-    pub fn new(field_name: String, field_value: String, err: String) -> Self {
+impl FormError <'_> {
+    pub fn new(field_name: &str, field_value: String, err: &str) -> FormError<'static> {
         let now = chrono::Utc::now();
         let date = now.format("%Y-%m-%d %H:%M:%S").to_string();
         
         FormError {
-            form_values: (field_name, field_value),
+            form_values: (field_name.to_string().leak(), field_value),
             date,
-            err: err.to_string(),
+            err: err.to_string().leak(),
         }
     }
 }
@@ -29,20 +29,20 @@ impl Form {
         Form { name, password }
     }
 
-    pub fn validate(&self) -> Result<(), FormError> {
+    pub fn validate(&self) -> Result<(), FormError<'_>> {
         if self.name.is_empty() {
             return Err(FormError::new(
-                "first_name".to_string(),
+                "name",
                 self.name.clone(),
-                "Username is empty".to_string(),
+                "Username is empty",
             ));
         }
 
         if self.password.len() < 8 {
             return Err(FormError::new(
-                "password".to_string(),
+                "password",
                 self.password.clone(),
-                "Password should be at least 8 characters long".to_string(),
+                "Password should be at least 8 characters long",
             ));
         }
         let has_alpha = self.password.chars().any(|c| c.is_ascii_alphabetic());
@@ -51,9 +51,9 @@ impl Form {
 
         if !(has_alpha && has_numeric && has_symbol) {
             return Err(FormError::new(
-                "password".to_string(),
+                "password",
                 self.password.clone(),
-                "Password should be a combination of ASCII numbers, letters and symbols".to_string(),
+                "Password should be a combination of ASCII numbers, letters and symbols",
             ));
         }
 
