@@ -1,34 +1,44 @@
-use std::ops::*;
-pub trait Scalar: Copy + Add<Output = Self> + Mul<Output = Self> + Default {}
+use lalgebra_scalar::Scalar;
 
-impl<T: Copy + Add<Output = Self> + Mul<Output = Self> + Default> Scalar for T {}
+#[derive(Debug, Clone, Eq, PartialEq)]
+pub struct Vector<T: Scalar<Item = T>>(pub Vec<T>);
 
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct Vector<T: Scalar>(pub Vec<T>);
+use std::ops::Add;
 
-impl<T: Scalar > Add for Vector<T> {
-    type Output = Self;
-
-    fn add(self, other: Self) -> Self {
-        let mut result = Vec::new();
-        for (a, b) in self.0.iter().zip(other.0.iter()) {
-            result.push(*a + *b);
+impl<T: Scalar<Item = T> + Add<Output = T>> Add<Self> for Vector<T> {
+    type Output = Option<Self>;
+    fn add(self, other: Self) -> Self::Output {
+        if self.0.len() != other.0.len() {
+            return None;
         }
-        Self(result)
+
+        let result: Vector<T> = Vector(
+            self.0
+                .iter()
+                .zip(other.0.iter())
+                .map(|(x, y)| x.clone() + y.clone())
+                .collect(),
+        );
+        Some(result)
     }
 }
 
-impl<T: Scalar> Vector<T> {
+impl<T: Scalar<Item = T> + std::iter::Sum<<T as std::ops::Mul>::Output>> Vector<T> {
     pub fn new() -> Self {
-        Self(Vec::new())
+        Vector(Vec::new())
     }
 
-    pub fn dot(&self, other: &Self) -> T {
-        let mut sum = T::default();
-        for (a, b) in self.0.iter().zip(other.0.iter()) {
-            let product = *a * *b;
-            sum = sum + product;
+    pub fn dot(&self, other: &Self) -> Option<T> {
+        if self.0.len() != other.0.len() {
+            return None;
         }
-        sum
+        let result = self
+            .0
+            .iter()
+            .zip(other.0.iter())
+            .map(|(x, y)| x.clone() * y.clone())
+            .sum();
+
+        Some(result)
     }
 }
