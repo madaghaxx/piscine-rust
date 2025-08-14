@@ -6,12 +6,12 @@ pub struct FormError {
 }
 
 impl FormError {
-    pub fn new(field_name: &str, field_value: String, err: &str) -> Self {
+    pub fn new(field_name: String, field_value: String, err: String) -> Self {
         let now = chrono::Utc::now();
         let date = now.format("%Y-%m-%d %H:%M:%S").to_string();
         
         FormError {
-            form_values: (field_name.to_string(), field_value),
+            form_values: (field_name, field_value),
             date,
             err: err.to_string(),
         }
@@ -32,17 +32,17 @@ impl Form {
     pub fn validate(&self) -> Result<(), FormError> {
         if self.name.is_empty() {
             return Err(FormError::new(
-                "first_name",
+                "first_name".to_string(),
                 self.name.clone(),
-                "Username is empty",
+                "Username is empty".to_string(),
             ));
         }
 
         if self.password.len() < 8 {
             return Err(FormError::new(
-                "password",
+                "password".to_string(),
                 self.password.clone(),
-                "Password should be at least 8 characters long",
+                "Password should be at least 8 characters long".to_string(),
             ));
         }
         let has_alpha = self.password.chars().any(|c| c.is_ascii_alphabetic());
@@ -51,9 +51,9 @@ impl Form {
 
         if !(has_alpha && has_numeric && has_symbol) {
             return Err(FormError::new(
-                "password",
+                "password".to_string(),
                 self.password.clone(),
-                "Password should be a combination of ASCII numbers, letters and symbols",
+                "Password should be a combination of ASCII numbers, letters and symbols".to_string(),
             ));
         }
 
