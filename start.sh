@@ -19,6 +19,4 @@ lib() {
 	code src/lib.rs
 }
 EOF
-
-source ~/.zshrc
 clear
