@@ -1,6 +1,6 @@
 pub fn get_products(arr: Vec<usize>) -> Vec<usize> {
     if arr.len() == 1 {
-        return arr;
+        return Vec::new();
     }
     let mut res = Vec::new();
     for i in &arr {
