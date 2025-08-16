@@ -38,8 +38,6 @@ impl fmt::Display for Notification {
     }
 }
 
-use Event::*;
-
 impl Event<'_> {
     pub fn notify(&self) -> Notification {
         match self {
