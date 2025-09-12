@@ -2,41 +2,43 @@ mod mall;
 pub use mall::*;
 pub use std::collections::HashMap;
 
-// returns the Store with the most square meters
-pub fn biggest_store(mall: &Mall) -> Store {
-    let mut best: Option<&Store> = None;
+// returns the Store with the most square meters along with its name
+pub fn biggest_store(mall: &Mall) -> (String, Store) {
+    let mut best: Option<(String, Store)> = None;
     for floor in mall.floors.values() {
-        for store in floor.stores.values() {
-            best = match best {
-                Some(current) if current.square_meters >= store.square_meters => Some(current),
-                _ => Some(store),
-            };
+        for (name, store) in floor.stores.iter() {
+            match &best {
+                Some((_, s)) if s.square_meters >= store.square_meters => {}
+                _ => {
+                    best = Some((name.clone(), store.clone()));
+                }
+            }
         }
     }
-    best.cloned().expect("mall has no stores")
+    best.expect("mall has no stores")
 }
 
 // returns the Employee(s) with the highest salary
-pub fn highest_paid_employee(mall: &Mall) -> Vec<Employee> {
+pub fn highest_paid_employee(mall: &Mall) -> Vec<(String, Employee)> {
     let mut best_salary: Option<f64> = None;
-    let mut best_employees: Vec<Employee> = Vec::new();
+    let mut best_employees: Vec<(String, Employee)> = Vec::new();
 
     for floor in mall.floors.values() {
         for store in floor.stores.values() {
-            for emp in store.employees.values() {
+            for (name, emp) in store.employees.iter() {
                 match best_salary {
                     None => {
                         best_salary = Some(emp.salary);
                         best_employees.clear();
-                        best_employees.push(*emp);
+                        best_employees.push((name.clone(), *emp));
                     }
                     Some(s) if emp.salary > s => {
                         best_salary = Some(emp.salary);
                         best_employees.clear();
-                        best_employees.push(*emp);
+                        best_employees.push((name.clone(), *emp));
                     }
                     Some(s) if emp.salary == s => {
-                        best_employees.push(*emp);
+                        best_employees.push((name.clone(), *emp));
                     }
                     _ => {}
                 }
