@@ -1,6 +1,6 @@
 pub fn num_to_ordinal(x: u32) -> String {
     let mut res = x.to_string();
-    match x {
+    match x % 100 {
         11 | 12 | 13 => {
             res += "th";
         }
