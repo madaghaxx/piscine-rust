@@ -17,15 +17,18 @@ impl GameSession {
     }
 
     pub fn read_winner(&self) -> Option<&(String, u32)> {
-        if self.p1.1 > self.nb_games / 2 {
-            Some(&self.p1)
-        } else if self.p2.1 > self.nb_games / 2 {
-            Some(&self.p2)
+        if self.p1.1 <= self.nb_games / 2 + 1 && self.p2.1 <= self.nb_games / 2 + 1 {
+            if self.p1.1 > self.p2.1 {
+                return Some(&self.p1);
+            } else if self.p1.1 < self.p2.1 {
+                return Some(&self.p2);
+            } else {
+                return None;
+            }
         } else {
-            None
+            return None;
         }
     }
-
     pub fn update_score(&mut self, user_name: &str) {
         if self.p1.1 > self.nb_games / 2 || self.p2.1 > self.nb_games / 2 {
             return;
