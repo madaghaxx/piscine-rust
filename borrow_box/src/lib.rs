@@ -17,27 +17,25 @@ impl GameSession {
     }
 
     pub fn read_winner(&self) -> Option<&(String, u32)> {
-        if self.p1.1 <= self.nb_games / 2 + 1 && self.p2.1 <= self.nb_games / 2 + 1 {
-            if self.p1.1 > self.nb_games / 2 {
-                return Some(&self.p1);
-            } else if self.p1.1 > self.nb_games / 2 {
-                return Some(&self.p2);
-            } else {
-                None
-            }
-        }else{
+        if self.p1.1 > self.nb_games / 2 {
+            Some(&self.p1)
+        } else if self.p2.1 > self.nb_games / 2 {
+            Some(&self.p2)
+        } else {
             None
         }
     }
 
     pub fn update_score(&mut self, user_name: &str) {
-        if user_name == self.p1.0 {
+        if self.p1.1 > self.nb_games / 2 || self.p2.1 > self.nb_games / 2 {
+            return;
+        }
+        if self.p1.0 == user_name {
             self.p1.1 += 1;
-        } else {
+        } else if self.p2.0 == user_name {
             self.p2.1 += 1;
         }
     }
-
     pub fn delete(self) -> String {
         return format!("game deleted: id -> {0}", self.id);
     }
