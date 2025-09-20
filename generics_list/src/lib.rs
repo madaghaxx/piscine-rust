@@ -24,7 +24,7 @@ impl<T> List<T> {
 
     pub fn pop(&mut self) {
         if let Some(node) = self.head.take() {
-            self.head = node.next.map(|b| *b);
+            self.head = node.next;
         }
     }
 
