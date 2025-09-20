@@ -18,14 +18,16 @@ impl AppendStr for StringValue {
     }
 
     fn append_number(&mut self, nb_to_append: f64) -> Self {
-        self.value.push_str(&nb_to_append.to_string());
+        // self.value.push_str(&nb_to_append.to_string());
+        println!("sas: {} \nlmhraz: {}", self.value, nb_to_append);
+        self.value += &nb_to_append.to_string();
         self.clone()
     }
 
     fn remove_punctuation_marks(&mut self) -> Self {
         self.value = self.value
             .chars()
-            .filter(|x| !x.is_ascii_punctuation())
+            .filter(|x| *x == '-' || !x.is_ascii_punctuation())
             .collect();
         self.clone()
     }
