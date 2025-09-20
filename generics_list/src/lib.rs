@@ -22,11 +22,10 @@ impl<T> List<T> {
         self.head = Some(new_node);
     }
 
-    pub fn pop(&mut self) -> Option<T> {
-        self.head.take().map(|node| {
-            self.head = node.next;
-            node.value
-        })
+    pub fn pop(&mut self) {
+        if let Some(node) = self.head.take() {
+            self.head = node.next.map(|b| *b);
+        }
     }
 
     pub fn len(&self) -> usize {
