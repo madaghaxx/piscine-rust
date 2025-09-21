@@ -17,19 +17,39 @@ impl<T: Scalar> Add for Vector<T> {
     }
 }
 
-impl<T: Scalar + Default> Vector<T> {
+// impl<T: Scalar + Default> Vector<T> {
+//     pub fn new() -> Self {
+//         Vector(Vec::new())
+//     }
+//     pub fn dot(&self, other: &Self) -> Option<T> {
+//         if self.0.len() != other.0.len() {
+//             return None;
+//         }
+
+//         let mut result = T::default();
+//         for (a, b) in self.0.iter().zip(other.0.iter()) {
+//             result = result + *a * *b;
+//         }
+//         Some(result)
+//     }
+// }
+impl<T: Scalar> Vector<T> {
     pub fn new() -> Self {
-        Vector(Vec::new())
+        Self(Vec::new())
     }
+
     pub fn dot(&self, other: &Self) -> Option<T> {
         if self.0.len() != other.0.len() {
             return None;
         }
-
-        let mut result = T::default();
+        let mut sum = None;
         for (a, b) in self.0.iter().zip(other.0.iter()) {
-            result = result + *a * *b;
+            let product = *a * *b;
+            sum = match sum {
+                None => Some(product),
+                Some(s) => Some(s + product),
+            };
         }
-        Some(result)
+        sum
     }
 }
