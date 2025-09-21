@@ -15,7 +15,7 @@ pub enum RhFactor {
 #[derive(PartialEq, Eq, PartialOrd, Clone, Copy)]
 pub struct BloodType {
     pub antigen: Antigen,
-    rh_factor: RhFactor,
+    pub rh_factor: RhFactor,
 }
 
 use std::{ str::FromStr, fmt::{ self, Debug }, cmp::{ Ord, Ordering } };
