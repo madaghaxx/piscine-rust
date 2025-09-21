@@ -1,47 +1,37 @@
-use std::ops::*;
-pub trait Scalar: Copy + Add<Output = Self> + Mul<Output = Self> {}
-
-impl<T: Copy + Add<Output = Self> + Mul<Output = Self>> Scalar for T {}
-
+use std::fmt::Debug;
+use std::ops::Add;
+use lalgebra_scalar::*;
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Vector<T: Scalar>(pub Vec<T>);
 
 impl<T: Scalar> Add for Vector<T> {
-    type Output = Self;
+    type Output = Option<Self>;
 
-    fn add(self, other: Self) -> Self::Output {
-        if self.0.len() != other.0.len() {
-            panic!("Vector dimensions must match for addition");
+    fn add(self, rhs: Self) -> Self::Output {
+        if self.0.len() != rhs.0.len() {
+            return None;
         }
-
-        let result: Vector<T> = Vector(
-            self.0
-                .iter()
-                .zip(other.0.iter())
-                .map(|(x, y)| x.clone() + y.clone())
-                .collect()
-        );
-        result
+        let mut result = Vec::with_capacity(self.0.len());
+        for i in 0..self.0.len() {
+            result.push(self.0[i] + rhs.0[i]);
+        }
+        Some(Vector(result))
     }
 }
 
 impl<T: Scalar> Vector<T> {
     pub fn new() -> Self {
-        Self(Vec::new())
+        Vector(Vec::new())
     }
 
     pub fn dot(&self, other: &Self) -> Option<T> {
         if self.0.len() != other.0.len() {
             return None;
         }
-        let mut sum = None;
-        for (a, b) in self.0.iter().zip(other.0.iter()) {
-            let product = *a * *b;
-            sum = match sum {
-                None => Some(product),
-                Some(s) => Some(s + product),
-            };
+        let mut sum = T::zero();
+        for i in 0..self.0.len() {
+            sum = sum + self.0[i] * other.0[i];
         }
-        sum
+        Some(sum)
     }
 }
