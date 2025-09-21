@@ -11,7 +11,7 @@ impl<T: Scalar> Add for Vector<T> {
 
     fn add(self, other: Self) -> Self::Output {
         if self.0.len() != other.0.len() {
-            return None;
+            panic!("Vector dimensions must match for addition");
         }
 
         let result: Vector<T> = Vector(
@@ -21,7 +21,7 @@ impl<T: Scalar> Add for Vector<T> {
                 .map(|(x, y)| x.clone() + y.clone())
                 .collect()
         );
-        Some(result)
+        result
     }
 }
 
