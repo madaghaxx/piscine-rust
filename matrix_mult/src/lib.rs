@@ -1,5 +1,5 @@
 pub use matrix::*;
-pub use std::ops::Mul;
+pub use std::ops::{ Mul, Add };
 #[derive(Debug, PartialEq, Clone)]
 pub struct Matrix<T>(pub Vec<Vec<T>>);
 impl<T: Copy> Matrix<T> {
