@@ -24,21 +24,26 @@ impl<T: Copy> Matrix<T> {
     }
 }
 
-impl<T: Mul<Output = T> + Copy> Mul for Matrix<T> {
-    type Output = Option<Self>;
+impl<T: Mul<Output = T> + Add<Output = T> + Copy + Default> Mul for Matrix<T> {
+    type Output = Option<Matrix<T>>;
 
-    fn mul(self, other: Self) -> Option<Self> {
-        let mut res = vec![];
-        for (v1, v2) in self.0.iter().zip(other.0.iter()) {
-            if v1.len() != v2.len() {
-                return None;
-            }
-            let mut temp = vec![];
-            for (vv1, vv2) in v1.iter().zip(v2.iter()) {
-                temp.push(*vv1 * *vv2);
-            }
-            res.push(temp);
+    fn mul(self, other: Self) -> Option<Matrix<T>> {
+        if self.number_of_cols() != other.number_of_rows() {
+            return None;
         }
-        Some(Matrix(res))
+
+        let mut result = Vec::new();
+        for i in 0..self.number_of_rows() {
+            let mut new_row = Vec::new();
+            for j in 0..other.number_of_cols() {
+                let mut sum = T::default();
+                for k in 0..self.number_of_cols() {
+                    sum = sum + self.0[i][k] * other.0[k][j];
+                }
+                new_row.push(sum);
+            }
+            result.push(new_row);
+        }
+        Some(Matrix(result))
     }
 }
