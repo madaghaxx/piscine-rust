@@ -1,6 +1,6 @@
 pub use matrix::*;
 pub use std::ops::Mul;
-#[derive(Debug, PartialEq,Clone)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct Matrix<T>(pub Vec<Vec<T>>);
 impl<T: Copy> Matrix<T> {
     pub fn number_of_cols(&self) -> usize {
@@ -12,15 +12,15 @@ impl<T: Copy> Matrix<T> {
     }
 
     pub fn row(&self, n: usize) -> Vec<T> {
+        self.0[n].clone()
+    }
+
+    pub fn col(&self, n: usize) -> Vec<T> {
         let mut res = vec![];
         for i in self.0.iter() {
             res.push(i[n]);
         }
         res
-    }
-
-    pub fn col(&self, n: usize) -> Vec<T> {
-        self.0[n].clone()
     }
 }
 
