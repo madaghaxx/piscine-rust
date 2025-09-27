@@ -1,4 +1,7 @@
 pub fn get_products(arr: Vec<usize>) -> Vec<usize> {
+    if arr.is_empty() {
+        return vec![];
+    }
     let mut res = vec![];
     for i in &arr {
         let mut temp = 1;
