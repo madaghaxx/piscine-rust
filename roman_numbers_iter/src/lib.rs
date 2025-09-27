@@ -90,7 +90,7 @@ impl Iterator for RomanNumber {
 impl RomanNumber {
     pub fn next_number(&self) -> Option<RomanNumber> {
         let current: u32 = self.clone().into();
-        Some(RomanNumber::from(current + 1))
+        current.checked_add(1).map(RomanNumber::from)
     }
 }
 
