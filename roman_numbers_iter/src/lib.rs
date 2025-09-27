@@ -80,15 +80,15 @@ impl From<u32> for RomanNumber {
 }
 
 impl Iterator for RomanNumber {
-    type Item = RomanDigit;
+    type Item = RomanNumber;
 
     fn next(&mut self) -> Option<Self::Item> {
-        if self.0.is_empty() { None } else { Some(self.0.remove(0)) }
+        self.next_number()
     }
 }
 
 impl RomanNumber {
-    pub fn next(&self) -> Option<RomanNumber> {
+    pub fn next_number(&self) -> Option<RomanNumber> {
         let current: u32 = self.clone().into();
         Some(RomanNumber::from(current + 1))
     }
