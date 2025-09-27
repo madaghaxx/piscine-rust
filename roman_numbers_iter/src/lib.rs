@@ -96,12 +96,12 @@ impl RomanNumber {
 
 impl From<RomanNumber> for u32 {
     fn from(roman: RomanNumber) -> Self {
-        let mut total = 0;
+        let mut total = 0i32;
         let digits = &roman.0;
 
         for i in 0..digits.len() {
-            let current_value = digits[i].value();
-            let next_value = digits.get(i + 1).map_or(0, |d| d.value());
+            let current_value = digits[i].value() as i32;
+            let next_value = digits.get(i + 1).map_or(0, |d| d.value() as i32);
 
             if current_value < next_value {
                 total -= current_value;
@@ -110,6 +110,6 @@ impl From<RomanNumber> for u32 {
             }
         }
 
-        total
+        total as u32
     }
 }
