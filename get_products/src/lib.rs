@@ -1,5 +1,5 @@
 pub fn get_products(arr: Vec<usize>) -> Vec<usize> {
-    if arr.is_empty() || arr[0] == 0 {
+    if arr.is_empty() || arr.len() == 1 {
         return vec![];
     }
     let mut res = vec![];
